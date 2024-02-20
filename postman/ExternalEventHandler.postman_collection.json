@@ -1,0 +1,33 @@
+{
+	"info": {
+		"_postman_id": "6b14dd58-7615-4013-bf15-9b00c4bb1dac",
+		"name": "ExternalEventHandler",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13807037"
+	},
+	"item": [
+		{
+			"name": "Webhook",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"action\": \"ROUTES_Recalculate\",\n    \"data\": {\n        \"routeId\": \"65d3ed1a007ac82d43a3f50b\",\n        \"actualPosition\": {\n            \"address\": \"Braga, Portugal\"\n        },\n        \"locationsToPass\": [\n            {\n                \"address\": \"Caldas das Taipas, Guimarães, Portugal\"\n            },\n            {\n                \"address\": \"Vila Nova de Famalicação, Portugal\"\n            }\n        ],\n        \"finalLocation\": {\n            \"address\": \"Porto, Portugal\"\n        }\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{external-event-hanlder}}webhook",
+					"host": [
+						"{{external-event-hanlder}}webhook"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
