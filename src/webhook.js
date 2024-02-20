@@ -2,54 +2,54 @@ const express = require('express');
 const router = express.Router();
 const amqp = require('amqplib/callback_api');
 
-// Known event handlers
-const eventHandlers = {
-    'ROUTES_Recalculate': async (eventData) => {
-        // Logic to recalculate the route
-        // ...
-        // Publish the event data to RabbitMQ
-        const queueName = 'ROUTES_Recalculate';
-        channel.sendToQueue(queueName, Buffer.from(JSON.stringify(eventData)));
-    },
-    // Add more handlers as needed for other known events
-};
+function initializeEventHandlers(channel) {
+    const queues = ['ROUTES_Recalculate', 'VEHICLES_Assistance'];
+    queues.forEach(queue => {
+        channel.assertQueue(queue, { durable: true });
+    });
 
-// Default event handler for unknown events
-const defaultEventHandler = async (eventData) => {
-    console.log(`Received unknown event: ${eventData.action}`);
-};
+    const eventHandlers = {
+        'ROUTES_Recalculate': async (eventData) => {
+            const queueName = 'ROUTES_Recalculate';
+            channel.sendToQueue(queueName, Buffer.from(JSON.stringify(eventData)));
+        },
+        'VEHICLES_Assistance': async (eventData) => {
+            const queueName = 'VEHICLES_Assistance';
+            channel.sendToQueue(queueName, Buffer.from(JSON.stringify(eventData)));
+        },
+    };
 
-// RabbitMQ connection setup
-let connection;
-let channel;
+    const defaultEventHandler = async (eventData) => {
+        console.log(`Received unknown event: ${eventData.action}`);
+    };
 
-amqp.connect(process.env.RABBITMQ_URI, (error0, connection) => {
+    router.post('/', async (req, res) => {
+        const eventData = req.body;
+        const eventType = eventData.action;
+
+        if (eventHandlers.hasOwnProperty(eventType)) {
+            await eventHandlers[eventType](eventData);
+            res.status(200).send(`Event ${eventType} handled successfully.`);
+        } else {
+            await defaultEventHandler(eventData);
+            res.status(200).send(`Event ${eventType} is unknown, but handled by default handler.`);
+        }
+    });
+}
+
+amqp.connect(process.env.RABBITMQ_URI, (error0, conn) => {
     if (error0) {
         throw error0;
     }
-    connection.createChannel((error1, channel) => {
+    connection = conn;
+    connection.createChannel((error1, ch) => {
         if (error1) {
             throw error1;
         }
-        // Ensure the queue exists
-        const queue = 'webhook_events';
-        channel.assertQueue(queue, { durable: false });
+        channel = ch;
+
+        initializeEventHandlers(channel);
     });
 });
 
-// Webhook endpoint
-router.post('/', async (req, res) => {
-    const eventData = req.body;
-    const eventType = eventData.action;
-
-    // Check if the event type has a known handler
-    if (eventHandlers.hasOwnProperty(eventType)) {
-        // Execute the known event handler
-        await eventHandlers[eventType](eventData);
-        res.status(200).send(`Event ${eventType} handled successfully.`);
-    } else {
-        // Execute the default event handler for unknown events
-        await defaultEventHandler(eventData);
-        res.status(200).send(`Event ${eventType} is unknown, but handled by default handler.`);
-    }
-});
+module.exports = router;
