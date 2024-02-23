@@ -5,11 +5,9 @@
 [![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/duartefernandes/external-event-handler?label=size)](https://hub.docker.com/r/duartefernandes/external-event-handler)
 [![Docker Pulls](https://img.shields.io/docker/pulls/duartefernandes/external-event-handler)](https://hub.docker.com/r/duartefernandes/external-event-handler)
 
-This is a application for handling external events that can reach the system and publishes them into RabbitMQ.
+This application handles external events that can reach the system and publish them into _RabbitMQ_.
 
-Each route is associated with a vehicle and a user (driver), and the service verifies the existence of the vehicle and the user by making requests to the [Vehicles.MicroService](https://github.com/duartefernandes/Vehicles.MicroService) and [Auth.MicroService](https://github.com/duartefernandes/Auth.MicroService), respectively. The service also uses the [OpenRouteService API](https://openrouteservice.org) to perform geocoding actions and calculate route distances and durations.
-
-This application is part of a larger project that includes other microservices and an API gateway. The other components of the project can be found at the following links:
+This application is part of a larger project with other microservices and an API gateway. The other components of the project can be found at the following links:
  - [Auth.MicroService](https://github.com/duartefernandes/Auth.MicroService)
  - [Vehicles.MicroService](https://github.com/duartefernandes/Vehicles.MicroService)
  - [Routes.MicroService](https://github.com/duartefernandes/Routes.MicroService)
@@ -20,8 +18,8 @@ This application is part of a larger project that includes other microservices a
 To get started with this project, clone the repository and install the dependencies:
 
 ```bash
-git clone https://github.com/Rafa26Azevedo/Routes.MicroService.git
-cd Routes.MicroService
+git clone https://github.com/MEI-Grupo-4-CarIn/ExternalEventHandler.git
+cd ExternalEventHandler
 npm install
 ```
 
@@ -33,7 +31,7 @@ Finally, start the server:
 npm start
 ```
 
-The server will start on port 3001, and you can make requests to the `http://localhost:3002/webhook` endpoint.
+The server will start on port 3002, and you can make requests to the `http://localhost:3002/webhook` endpoint.
 
 ## Environment Variables
 
@@ -44,7 +42,7 @@ This project uses environment variables for configuration. To set up your local 
 
 The following environment variables are used in this project:
 
-- `RABBITMQ_URI`: The base URL of yours RabbitMQ instance.
+- `RABBITMQ_URI`: The base URL of your _RabbitMQ_ instance.
 
 Remember not to commit the `.env` file to the repository. This file is included in the `.gitignore` file to prevent it from being accidentally committed.
 
