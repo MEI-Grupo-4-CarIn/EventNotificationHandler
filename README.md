@@ -1,25 +1,26 @@
-# ExternalEventHandler
+# EventNotificationHandler
 
-[![Docker Hub](https://img.shields.io/badge/Docker%20Hub-ExternalEventHandler-blue)](https://hub.docker.com/r/duartefernandes/external-event-handler)
-[![Docker Image Version (latest by date)](https://img.shields.io/docker/v/duartefernandes/external-event-handler?label=version)](https://hub.docker.com/r/duartefernandes/external-event-handler)
-[![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/duartefernandes/external-event-handler?label=size)](https://hub.docker.com/r/duartefernandes/external-event-handler)
-[![Docker Pulls](https://img.shields.io/docker/pulls/duartefernandes/external-event-handler)](https://hub.docker.com/r/duartefernandes/external-event-handler)
+[![Docker Hub](https://img.shields.io/badge/Docker%20Hub-EventNotificationHandler-blue)](https://hub.docker.com/r/duartefernandes/event-notification-handler)
+[![Docker Image Version (latest by date)](https://img.shields.io/docker/v/duartefernandes/event-notification-handler?label=version)](https://hub.docker.com/r/duartefernandes/event-notification-handler)
+[![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/duartefernandes/event-notification-handler?label=size)](https://hub.docker.com/r/duartefernandes/event-notification-handler)
+[![Docker Pulls](https://img.shields.io/docker/pulls/duartefernandes/event-notification-handler)](https://hub.docker.com/r/duartefernandes/event-notification-handler)
 
-This application handles external events that can reach the system and publish them into _RabbitMQ_.
+This application handles external events that can reach the system, publishes them into _RabbitMQ_, and processes notifications.
 
 This application is part of a larger project with other microservices and an API gateway. The other components of the project can be found at the following links:
- - [Auth.MicroService](https://github.com/duartefernandes/Auth.MicroService)
- - [Vehicles.MicroService](https://github.com/duartefernandes/Vehicles.MicroService)
- - [Routes.MicroService](https://github.com/duartefernandes/Routes.MicroService)
- - [OcelotApiGateway](https://github.com/duartefernandes/OcelotApiGateway)
+
+- [Auth.MicroService](https://github.com/duartefernandes/Auth.MicroService)
+- [Vehicles.MicroService](https://github.com/duartefernandes/Vehicles.MicroService)
+- [Routes.MicroService](https://github.com/duartefernandes/Routes.MicroService)
+- [OcelotApiGateway](https://github.com/duartefernandes/OcelotApiGateway)
 
 ## Getting Started
 
 To get started with this project, clone the repository and install the dependencies:
 
 ```bash
-git clone https://github.com/MEI-Grupo-4-CarIn/ExternalEventHandler.git
-cd ExternalEventHandler
+git clone https://github.com/MEI-Grupo-4-CarIn/EventNotificationHandler.git
+cd EventNotificationHandler
 npm install
 ```
 
