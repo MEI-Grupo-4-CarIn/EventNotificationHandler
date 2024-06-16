@@ -1,7 +1,7 @@
 const amqp = require("amqplib/callback_api");
 
 function subscribeToQueue(processMessage) {
-  const rabbitmqUrl = process.env.RABBITMQ_URL || "amqp://localhost";
+  const rabbitmqUrl = process.env.RABBITMQ_URI;
 
   amqp.connect(rabbitmqUrl, (error0, connection) => {
     if (error0) {
